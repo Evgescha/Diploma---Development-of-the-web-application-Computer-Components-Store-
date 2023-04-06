@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit SddHdd</title>
+</head>
+<body>
+<h1>Edit SddHdd</h1>
+<h3 th:if="${message != null}" th:text="${message}">Message</h3>
+<form th:action="@{/sddHdd}" th:object="${entity}" method="post">
+
+    <p>
+        <label for="volume">volume:</label>
+            <input type="text" th:field="*{volume}" id="volume" required>
+        </p>
+    <p>
+        <label for="formFactor">formFactor:</label>
+            <input type="text" th:field="*{formFactor}" id="formFactor" required>
+        </p>
+    <p>
+        <label for="readSpeed">readSpeed:</label>
+            <input type="text" th:field="*{readSpeed}" id="readSpeed" required>
+        </p>
+    <p>
+        <label for="writeSpeed">writeSpeed:</label>
+            <input type="text" th:field="*{writeSpeed}" id="writeSpeed" required>
+        </p>
+    <p>
+        <label for="category">category:</label>
+            <input type="text" th:field="*{category}" id="category" required>
+        </p>
+
+    <p>
+        <input type="text" th:field="*{id}" id="id">
+        <input type="submit" value="Save">
+        <a th:href="@{/sddHdd}">Cancel</a>
+    </p>
+</form>
+
+</body>
+</html>

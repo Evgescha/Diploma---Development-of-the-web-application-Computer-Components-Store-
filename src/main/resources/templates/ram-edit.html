@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Ram</title>
+</head>
+<body>
+<h1>Edit Ram</h1>
+<h3 th:if="${message != null}" th:text="${message}">Message</h3>
+<form th:action="@{/ram}" th:object="${entity}" method="post">
+
+    <p>
+        <label for="type">type:</label>
+            <input type="text" th:field="*{type}" id="type" required>
+        </p>
+    <p>
+        <label for="volume">volume:</label>
+            <input type="text" th:field="*{volume}" id="volume" required>
+        </p>
+    <p>
+        <label for="frequency">frequency:</label>
+            <input type="text" th:field="*{frequency}" id="frequency" required>
+        </p>
+    <p>
+        <label for="category">category:</label>
+            <input type="text" th:field="*{category}" id="category" required>
+        </p>
+
+    <p>
+        <input type="text" th:field="*{id}" id="id">
+        <input type="submit" value="Save">
+        <a th:href="@{/ram}">Cancel</a>
+    </p>
+</form>
+
+</body>
+</html>

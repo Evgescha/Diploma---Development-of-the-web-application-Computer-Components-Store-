@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit MotherBoard</title>
+</head>
+<body>
+<h1>Edit MotherBoard</h1>
+<h3 th:if="${message != null}" th:text="${message}">Message</h3>
+<form th:action="@{/motherBoard}" th:object="${entity}" method="post">
+
+    <p>
+        <label for="socket">socket:</label>
+            <input type="text" th:field="*{socket}" id="socket" required>
+        </p>
+    <p>
+        <label for="provider">provider:</label>
+            <input type="text" th:field="*{provider}" id="provider" required>
+        </p>
+    <p>
+        <label for="chipset">chipset:</label>
+            <input type="text" th:field="*{chipset}" id="chipset" required>
+        </p>
+    <p>
+        <label for="ramType">ramType:</label>
+            <input type="text" th:field="*{ramType}" id="ramType" required>
+        </p>
+    <p>
+        <label for="ramSlotNumber">ramSlotNumber:</label>
+            <input type="text" th:field="*{ramSlotNumber}" id="ramSlotNumber" required>
+        </p>
+    <p>
+        <label for="category">category:</label>
+            <input type="text" th:field="*{category}" id="category" required>
+        </p>
+
+    <p>
+        <input type="text" th:field="*{id}" id="id">
+        <input type="submit" value="Save">
+        <a th:href="@{/motherBoard}">Cancel</a>
+    </p>
+</form>
+
+</body>
+</html>
