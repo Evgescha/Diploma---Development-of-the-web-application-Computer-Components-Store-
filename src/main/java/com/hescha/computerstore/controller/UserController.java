@@ -5,6 +5,7 @@ import com.hescha.computerstore.service.OrderService;
 import com.hescha.computerstore.service.RoleService;
 import com.hescha.computerstore.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +32,7 @@ public class UserController {
 
     private final RoleService roleService;
     private final OrderService orderService;
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping
     public String readAll(Model model) {
@@ -52,8 +54,7 @@ public class UserController {
             model.addAttribute("entity", service.read(id));
         }
 
-        model.addAttribute("role_list", roleService.readAll());
-        model.addAttribute("order_list", orderService.readAll());
+        model.addAttribute("roles_list", roleService.readAll());
 
         return THYMELEAF_TEMPLATE_EDIT_PAGE;
     }
@@ -62,9 +63,9 @@ public class UserController {
     public String save(@ModelAttribute User entity, RedirectAttributes ra) {
         if (entity.getId() == null) {
             try {
-                User createdEntity = service.create(entity);
+                service.registerNew(entity);
                 ra.addFlashAttribute(MESSAGE, "Creating is successful");
-                return REDIRECT_TO_ALL_ITEMS + "/" + createdEntity.getId();
+                return REDIRECT_TO_ALL_ITEMS;
             } catch (Exception e) {
                 ra.addFlashAttribute(MESSAGE, "Creating failed");
                 e.printStackTrace();
@@ -72,6 +73,7 @@ public class UserController {
             return REDIRECT_TO_ALL_ITEMS;
         } else {
             try {
+                entity.setPassword(passwordEncoder.encode(entity.getPassword()));
                 service.update(entity.getId(), entity);
                 ra.addFlashAttribute(MESSAGE, "Editing is successful");
             } catch (Exception e) {
