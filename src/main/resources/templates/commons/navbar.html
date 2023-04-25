@@ -43,8 +43,12 @@
                                 <a href="/faq">FAQ</a>
                             </li>
 
-                            <li class="dropdown">
-                                <a href="/sign-in">SignIn</a>
+                            <li class="dropdown"  th:if="${#request.userPrincipal == null}">
+                                <a href="/login">Login</a>
+                            </li>
+
+                            <li class="dropdown"  th:if="${#request.userPrincipal != null}">
+                                <a href="/logout">LogOut</a>
                             </li>
 
 

@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
@@ -15,18 +16,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserService userDetailsService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
         auth.inMemoryAuthentication()
-                .withUser("user")
-                .password("{noop}user") // {noop} указывает, что пароль не будет кодироваться
-                .roles("USER");
+                .withUser("admin")
+                .password(passwordEncoder.encode("admin"))
+                .roles("ADMIN");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.headers().frameOptions().sameOrigin();
         http
                 .csrf().disable()
                 .cors().disable()
@@ -39,11 +43,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .successForwardUrl("/")
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/", true)
                 .failureForwardUrl("/login?error=true")
                 .permitAll()
                 .and()
                 .logout()
+                .logoutUrl("/logout") // Добавьте эту строку кода
                 .permitAll();
     }
 }

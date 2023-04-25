@@ -2,8 +2,10 @@ package com.hescha.computerstore.service;
 
 import com.hescha.computerstore.model.User;
 import com.hescha.computerstore.repository.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +16,11 @@ public class UserService extends CrudService<User>
         implements org.springframework.security.core.userdetails.UserDetailsService {
 
     private final UserRepository repository;
+    @Autowired
+    private RoleService roleService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public UserService(UserRepository repository) {
         super(repository);
@@ -115,5 +122,20 @@ public class UserService extends CrudService<User>
             throw new UsernameNotFoundException("User " + username + " not found");
         }
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), List.of());
+    }
+
+    public boolean registerNew(User entity) {
+        entity.getRoles().add(roleService.read(1));
+        if (repository.findByUsername(entity.getUsername()) != null) {
+            return false;
+        }
+        entity.setPassword(passwordEncoder.encode(entity.getPassword()));
+        try {
+            create(entity);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

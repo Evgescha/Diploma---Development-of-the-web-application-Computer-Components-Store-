@@ -3,6 +3,7 @@ package com.hescha.computerstore.service;
 import com.hescha.computerstore.model.Role;
 import com.hescha.computerstore.repository.*;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Set;
 
@@ -16,20 +17,17 @@ public class RoleService extends CrudService<Role> {
         this.repository = repository;
     }
 
-                                                        public List<Role> findByRole(String role) {
-                    return repository.findByRole(role);
-                }
-                        public List<Role> findByRoleContains(String role) {
-                return repository.findByRoleContains(role);
-            }
-                                                                    public List<Role> findByUsersContains(com.hescha.computerstore.model.User users) {
-                return repository.findByUsersContains(users);
-            }
-            
+    public List<Role> findByRole(String role) {
+        return repository.findByRole(role);
+    }
+
+    public List<Role> findByRoleContains(String role) {
+        return repository.findByRoleContains(role);
+    }
 
     public Role update(Long id, Role entity) {
         Role read = read(id);
-        if(read == null){
+        if (read == null) {
             throw new RuntimeException("Entity Role not found");
         }
         updateFields(entity, read);
@@ -38,7 +36,6 @@ public class RoleService extends CrudService<Role> {
     }
 
     private void updateFields(Role entity, Role read) {
-                                    read.setRole(entity.getRole());
-                                                read.setUsers(entity.getUsers());
-                        }
+        read.setRole(entity.getRole());
+    }
 }
