@@ -110,6 +110,7 @@ public class UserService extends CrudService<User>
         read.setEmail(entity.getEmail());
         read.setImage(entity.getImage());
         read.setAddress(entity.getAddress());
+        read.setRoles(entity.getRoles());
     }
 
 
