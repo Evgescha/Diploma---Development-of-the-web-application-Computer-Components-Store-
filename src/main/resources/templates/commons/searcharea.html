@@ -5,34 +5,13 @@
     <title>Title</title>
 </head>
 <body>
-<!-- ============================================================= SEARCH AREA ============================================================= -->
 <div class="search-area" th:fragment="searcharea">
     <form>
         <div class="control-group">
-
-            <ul class="categories-filter animate-dropdown">
-                <li class="dropdown">
-
-                    <a class="dropdown-toggle"  data-toggle="dropdown" href="category">Categories <b class="caret"></b></a>
-
-                    <ul class="dropdown-menu" role="menu" >
-                        <li class="menu-header">Computer</li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="category">- Laptops</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="category">- Tv & audio</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="category">- Gadgets</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="category">- Cameras</a></li>
-
-                    </ul>
-                </li>
-            </ul>
-
-            <input class="search-field" placeholder="Search here..." />
-
-            <a class="search-button" href="#" ></a>
-
+            <input class="search-field" placeholder="Search here..."/>
+            <a class="search-button" href="/product/search"></a>
         </div>
     </form>
-</div><!-- /.search-area -->
-<!-- ============================================================= SEARCH AREA : END ============================================================= -->
+</div>
 </body>
 </html>

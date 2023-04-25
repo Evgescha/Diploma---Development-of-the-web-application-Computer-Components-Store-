@@ -31,8 +31,8 @@ public class IndexController {
     public String shoppingcart(){
         return "shopping-cart";
     }
-    @GetMapping("/sing-in")
-    public String singin(){
-        return "sing-in";
+    @GetMapping("/sign-in")
+    public String sign(){
+        return "sign-in";
     }
 }
