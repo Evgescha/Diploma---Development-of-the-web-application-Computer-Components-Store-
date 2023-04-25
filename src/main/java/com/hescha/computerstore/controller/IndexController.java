@@ -9,19 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IndexController {
     @GetMapping
     public String home(){
-        return "home";
+        return "category";
     }
     @GetMapping("/404")
     public String page404(){
         return "404";
-    }
-    @GetMapping("/category")
-    public String category(){
-        return "category";
-    }
-    @GetMapping("/checkout")
-    public String checkout(){
-        return "checkout";
     }
     @GetMapping("/contact")
     public String contact(){
@@ -35,9 +27,9 @@ public class IndexController {
     public String faq(){
         return "faq";
     }
-    @GetMapping("/home2")
-    public String home2(){
-        return "home2";
+    @GetMapping("/shopping-cart")
+    public String shoppingcart(){
+        return "shopping-cart";
     }
     @GetMapping("/sing-in")
     public String singin(){
