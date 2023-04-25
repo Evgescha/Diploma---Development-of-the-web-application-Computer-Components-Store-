@@ -1,51 +1,185 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>View Product</title>
-    <meta charset="UTF-8">
-</head>
-<body>
-<h1>Product Details</h1>
-<h3 th:if="${message!=null}" th:text="${message}">Message</h3>
-<table>
-        <tr>
-        <th>name:</th>
-                <td th:text="${entity.name}"></td>
-            </tr>
-        <tr>
-        <th>description:</th>
-                <td th:text="${entity.description}"></td>
-            </tr>
-        <tr>
-        <th>image:</th>
-                <td th:text="${entity.image}"></td>
-            </tr>
-        <tr>
-        <th>price:</th>
-                <td th:text="${entity.price}"></td>
-            </tr>
-        <tr>
-        <th>comments:</th>
-                <td>
-            <ul>
-                <li th:each="comments_item : ${entity.comments}" th:text="${comments_item}"></li>
+<html lang="en">
+<head th:replace="~{/commons/head :: head}"></head>
+<body class="cnt-home">
+<header th:replace="~{/commons/header :: header}"></header>
+<div class="breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-inner">
+            <ul class="list-inline list-unstyled">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li class='active' th:text="${entity.name}">Samsung Galaxy S4 32GB White</li>
             </ul>
-        </td>
-            </tr>
-        <tr>
-        <th>deleted:</th>
-                <td th:text="${entity.deleted}"></td>
-            </tr>
-    
-
-</table>
-<br>
-<a th:href="@{/product}">Back to the List</a>
-<a th:href="@{/product/edit/{id}(id=${entity.id})}">Edit</a>
-<form th:if="${entity.id!=null}" method="get"
-         th:action="'/product/'
-               + ${entity.id} + '/delete'">
-    <input type="submit" value="Delete" onclick="return confirm('Are you sure?')">
-</form>
+        </div>
+        <!-- /.breadcrumb-inner -->
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /.breadcrumb -->
+<div class="body-content outer-top-xs">
+    <div class='container'>
+        <div class='row single-product outer-bottom-sm '>
+            <div class='col-md-9'>
+                <div class="row  wow fadeInUp">
+                    <div class="col-xs-12 col-sm-6 col-md-5 gallery-holder">
+                        <div class="product-item-holder size-big single-product-gallery small-gallery">
+                            <div id="owl-single-product">
+                                <div class="single-product-gallery-item" id="slide1">
+                                    <div data-lightbox="image-1">
+                                        <img class="img-responsive" alt="" src="/images/blank.gif"
+                                             th:src="${entity.image}"/>
+                                    </div>
+                                </div>
+                                <!-- /.single-product-gallery-item -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-sm-6 col-md-7 product-info-block'>
+                        <div class="product-info">
+                            <h1 class="name" th:text="${entity.name}">Samsung Galaxy S4 32GB White</h1>
+                            <div class="description-container m-t-20" th:text="${entity.shortDescription}"> Suspendisse
+                                posuere arcu diam, id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum
+                            </div>
+                            <!-- /.description-container -->
+                            <div class="price-container info-container m-t-20">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="price-box">
+                                            <span class="price" th:text="'$'+${entity.price}">$800.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.row -->
+                            </div>
+                            <!-- /.price-container -->
+                            <div class="quantity-container info-container">
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <span class="label">Qty :</span>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="cart-quantity">
+                                            <div class="quant-input">
+                                                <div class="arrows">
+                                                    <div class="arrow plus gradient">
+                                <span class="ir">
+                                  <i class="icon fa fa-sort-asc"></i>
+                                </span>
+                                                    </div>
+                                                    <div class="arrow minus gradient">
+                                <span class="ir">
+                                  <i class="icon fa fa-sort-desc"></i>
+                                </span>
+                                                    </div>
+                                                </div>
+                                                <input type="text" value="1" min="1" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <a href="#" class="btn btn-primary">
+                                            <i class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART </a>
+                                    </div>
+                                </div>
+                                <!-- /.row -->
+                            </div>
+                            <!-- /.quantity-container -->
+                        </div>
+                        <!-- /.product-info -->
+                    </div>
+                    <!-- /.col-sm-7 -->
+                </div>
+                <!-- /.row -->
+                <div class="product-tabs inner-bottom-xs  wow fadeInUp">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <ul id="product-tabs" class="nav nav-tabs nav-tab-cell">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#description">DESCRIPTION</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#review">COMMENTS</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-tabs #product-tabs -->
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="tab-content">
+                                <div id="description" class="tab-pane in active">
+                                    <div class="product-tab">
+                                        <p class="text" th:text="${entity.description}">Suspendisse posuere arcu diam,
+                                            id accumsan eros pharetra ac. Nulla enim risus, facilisis bibendum gravida
+                                        <p>
+                                    </div>
+                                </div>
+                                <!-- /.tab-pane -->
+                                <div id="review" class="tab-pane">
+                                    <div class="product-tab">
+                                        <div class="product-reviews">
+                                            <h4 class="title">Customer comments</h4>
+                                            <div class="reviews">
+                                                <div class="review" th:each="comments_item : ${entity.comments}">
+                                                    <div class="review-title">
+                                                        <span class="date">
+                                                          <i class="fa fa-calendar"></i>
+                                                          <span th:text="${comments_item.creationDate}">20 minutes ago</span>
+                                                        </span>
+                                                    </div>
+                                                    <div class="text" th:text="${comments_item.message}">"Lorem ipsum
+                                                        dolor sit amet, consectetur adipiscing elit.Aliquam suscipit
+                                                        nisl in adipiscin"
+                                                    </div>
+                                                    <div class="author m-t-15">
+                                                        <i class="fa fa-pencil-square-o"></i>
+                                                        <span class="name" th:text="${comments_item.owner.username}">Michael Lee</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /.reviews -->
+                                        </div>
+                                        <!-- /.product-reviews -->
+                                        <div class="product-add-review">
+                                            <h4 class="title">Write your own comment</h4>
+                                            <div class="review-form">
+                                                <div class="form-container">
+                                                    <form role="form" class="cnt-form">
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <label for="exampleInputReview">Comment <span
+                                                                            class="astk">*</span>
+                                                                    </label>
+                                                                    <textarea class="form-control txt txt-review"
+                                                                              id="exampleInputReview" rows="4"
+                                                                              placeholder=""></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="action text-right">
+                                                            <button class="btn btn-primary btn-upper">SUBMIT COMMENT
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <!-- /.row -->
+        <div th:replace="~{/commons/brand :: brand}"></div>
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /.body-content -->
+<div th:replace="commons/footer::footer"></div>
 </body>
 </html>
