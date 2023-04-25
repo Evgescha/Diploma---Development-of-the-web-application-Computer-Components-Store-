@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IndexController {
     @GetMapping
     public String home(){
-        return "category";
+        return "redirect:/product";
     }
     @GetMapping("/404")
     public String page404(){

@@ -1,52 +1,127 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>List of Product</title>
-    <meta charset="UTF-8">
-</head>
-<body>
-<h1>List of Product</h1>
-<h3 th:if="${message != null}" th:text="${message}">Message</h3>
-<a th:href="@{/product/edit}">Create new Product</a>
-<table>
-    <thead>
-    <tr>
-        <th>name</th>
-        <th>shortDescription</th>
-        <th>description</th>
-        <th>image</th>
-        <th>price</th>
-        <th>comments</th>
-        <th>deleted</th>
-
-        <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="entity : ${list}">
-        <td th:text=${entity.name}></td>
-        <td th:text=${entity.shortDescription}></td>
-        <td th:text=${entity.description}></td>
-        <td th:text=${entity.image}></td>
-        <td th:text=${entity.price}></td>
-        <td>
-            <ul>
-                <li th:each="comments_item : ${entity.comments}" th:text="${comments_item}"></li>
+<html lang="en">
+<head th:replace="~{/commons/head :: head}"></head>
+<body class="cnt-home">
+<div th:replace="~{/commons/header :: header}"></div>
+<div class="breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-inner">
+            <ul class="list-inline list-unstyled">
+                <li>
+                    <a href="#">Home</a>
+                </li>
+                <li class='active'>Products</li>
             </ul>
-        </td>
-        <td th:text=${entity.deleted}></td>
-
-        <td>
-            <a th:href="@{/product/{id}(id=${entity.id})}">See detail</a>
-            <a th:href="@{/product/edit/{id}(id=${entity.id})}">Edit</a>
-            <form th:if="${entity.id!=null}" method="get"
-                  th:action="'/product/'
-                  +${entity.id}+'/delete'">
-                <input type="submit" value="Delete" onclick="return confirm('Are you sure?')">
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
+        </div>
+        <!-- /.breadcrumb-inner -->
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /.breadcrumb -->
+<div class="body-content outer-top-xs">
+    <div class='container'>
+        <div class='row outer-bottom-sm'>
+            <div class='col-md-3 sidebar'>
+                <!-- ================================== TOP NAVIGATION ================================== -->
+                <div class="side-menu animate-dropdown outer-bottom-xs">
+                    <div class="head">
+                        <i class="icon fa fa-align-justify fa-fw"></i> Categories
+                    </div>
+                    <nav class="yamm megamenu-horizontal" role="navigation">
+                        <ul class="nav">
+                            <li class="dropdown menu-item">
+                                <a href="/" class="dropdown-toggle"> MotherBoards </a>
+                            </li>
+                            <li class="dropdown menu-item">
+                                <a href="/" class="dropdown-toggle"> Periferia </a>
+                            </li>
+                            <li class="dropdown menu-item">
+                                <a href="/" class="dropdown-toggle"> Processors </a>
+                            </li>
+                            <li class="dropdown menu-item">
+                                <a href="/" class="dropdown-toggle"> Ram </a>
+                            </li>
+                            <li class="dropdown menu-item">
+                                <a href="/" class="dropdown-toggle"> SSD/HDD </a>
+                            </li>
+                            <li class="dropdown menu-item">
+                                <a href="/" class="dropdown-toggle"> Videocards </a>
+                            </li>
+                            <!-- /.menu-item -->
+                        </ul>
+                        <!-- /.nav -->
+                    </nav>
+                    <!-- /.megamenu-horizontal -->
+                </div>
+            </div>
+            <!-- /.sidebar -->
+            <div class='col-md-9'>
+                <div class="search-result-container">
+                    <div id="myTabContent" class="tab-content">
+                        <div class="tab-pane active " id="grid-container">
+                            <div class="category-product  inner-top-vs">
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-4 wow fadeInUp" th:each="entity:${list}">
+                                        <div class="products">
+                                            <div class="product">
+                                                <div class="product-image">
+                                                    <div class="image">
+                                                        <a th:href="'/product/'+${entity.id}">
+                                                            <img src="/images/blank.gif" th:src="${entity.image}" style="width: 100%">
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <!-- /.product-image -->
+                                                <div class="product-info text-left">
+                                                    <h3 class="name">
+                                                        <a href="detail" th:text="${entity.name}">Sony Ericson Vaga</a>
+                                                    </h3>
+                                                    <div class="description"></div>
+                                                    <div class="product-price">
+                                                        <span class="price" th:text="'$'+${entity.price}"> $650.99 </span>
+                                                    </div>
+                                                    <!-- /.product-price -->
+                                                </div>
+                                                <!-- /.product-info -->
+                                                <div class="cart clearfix animate-effect">
+                                                    <div class="action">
+                                                        <ul class="list-unstyled">
+                                                            <li class="add-cart-button btn-group">
+                                                                <button class="btn btn-primary icon"
+                                                                        data-toggle="dropdown" type="button">
+                                                                    <i class="fa fa-shopping-cart"></i>
+                                                                </button>
+                                                                <a th:href="'/product/'+${entity.id}" class="btn btn-primary" type="button">Add to
+                                                                    cart
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <!-- /.action -->
+                                                </div>
+                                                <!-- /.cart -->
+                                            </div>
+                                            <!-- /.product -->
+                                        </div>
+                                        <!-- /.products -->
+                                    </div>
+                                </div>
+                                <!-- /.row -->
+                            </div>
+                            <!-- /.category-product -->
+                        </div>
+                    </div>
+                </div>
+                <!-- /.search-result-container -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        <div th:replace="~{/commons/brand :: brand}"></div>
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /.body-content -->
+<div th:replace="commons/footer::footer"></div>
 </body>
 </html>
