@@ -8,14 +8,16 @@ import java.util.List;
 
 @Data
 @Entity
-//@Embeddable
-public abstract class Product extends AbstractEntity {
+public class Product extends AbstractEntity {
     private String name;
-    @Column(length = 2500)
+    @Column(length = 1000)
+    private String shortDescription;
+    @Column(length = 20000)
     private String description;
     private String image;
     private Double price;
     @OneToMany
     private List<Comment> comments = new ArrayList<>();
     private Boolean deleted;
+    private Category category;
 }
