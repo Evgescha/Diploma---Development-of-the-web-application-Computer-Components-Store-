@@ -1,4 +1,4 @@
-package com.hescha.minijira.config;
+package com.hescha.computerstore.config;
 
 import com.hescha.computerstore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .cors().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/h2", "/h2/**", "/css/*", "/js/*", "/img/*", "/project",
+                .antMatchers("/", "/**","/**/**",
+//                        "/h2", "/h2/**", "/css/*", "/js/*", "/img/*", "/project",
                         "/registration", "/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/registration", "/login").permitAll()
                 .anyRequest().authenticated()

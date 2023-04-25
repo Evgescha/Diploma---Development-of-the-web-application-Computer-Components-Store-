@@ -70,7 +70,7 @@ a:active,
 a:focus {
   text-decoration: none;
 }
-img[src="assets/images/blank.gif"] {
+img[src="/images/blank.gif"] {
   background: url("../images/ajax.gif") no-repeat scroll center center #ffffff;
 }
 @font-face {

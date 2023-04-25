@@ -1,4 +1,4 @@
-package com.hescha.minijira.config;
+package com.hescha.computerstore.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

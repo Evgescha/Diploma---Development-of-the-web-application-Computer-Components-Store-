@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class UserService extends CrudService<User> implements org.springframework.security.core.userdetails.UserDetailsService {
+public class UserService extends CrudService<User>
+        implements org.springframework.security.core.userdetails.UserDetailsService {
 
     private final UserRepository repository;
 
