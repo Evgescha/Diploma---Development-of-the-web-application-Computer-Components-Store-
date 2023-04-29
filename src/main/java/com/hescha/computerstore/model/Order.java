@@ -20,4 +20,14 @@ public class Order extends AbstractEntity{
     private List<OrderItem> orderitems = new ArrayList<>();
     private LocalDateTime created = LocalDateTime.now();
     private OrderStatus status = OrderStatus.CREATED;
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "owner=" + owner.getUsername() +
+                ", orderitems=" + orderitems +
+                ", created=" + created +
+                ", status=" + status +
+                '}';
+    }
 }

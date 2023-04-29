@@ -54,38 +54,47 @@
                                 <!-- /.row -->
                             </div>
                             <!-- /.price-container -->
-                            <div class="quantity-container info-container">
-                                <div class="row">
-                                    <div class="col-sm-2">
-                                        <span class="label">Qty :</span>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="cart-quantity">
-                                            <div class="quant-input">
-                                                <div class="arrows">
-                                                    <div class="arrow plus gradient">
+                            <form class="w-50 text-center py-2"
+                                  th:if="${#request.userPrincipal != null}"
+                                  th:action="'/order/addProduct/'+${entity.id}"
+                                  method="get">
+
+                                <div class="quantity-container info-container">
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <span class="label">Qty :</span>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="cart-quantity">
+                                                <div class="quant-input">
+                                                    <div class="arrows">
+                                                        <div class="arrow plus gradient">
                                                     <span class="ir">
                                                       <i class="icon fa fa-sort-asc"></i>
                                                     </span>
-                                                    </div>
-                                                    <div class="arrow minus gradient">
+                                                        </div>
+                                                        <div class="arrow minus gradient">
                                                     <span class="ir">
                                                       <i class="icon fa fa-sort-desc"></i>
                                                     </span>
+                                                        </div>
                                                     </div>
+                                                    <input type="text" value="1" min="1" name="count" required>
                                                 </div>
-                                                <input type="text" value="1" min="1" required>
                                             </div>
                                         </div>
+                                        <div class="col-sm-7">
+                                            <button class="btn btn-primary" type="submit">
+                                                <i class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div class="col-sm-7">
-                                        <a href="#" class="btn btn-primary">
-                                            <i class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART </a>
-                                    </div>
+                                    <!-- /.row -->
                                 </div>
-                                <!-- /.row -->
-                            </div>
-                            <!-- /.quantity-container -->
+                                <!-- /.quantity-container -->
+
+                            </form>
+
                         </div>
                         <!-- /.product-info -->
                     </div>

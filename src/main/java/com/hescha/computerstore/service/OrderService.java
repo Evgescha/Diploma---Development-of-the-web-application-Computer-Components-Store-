@@ -1,12 +1,15 @@
 package com.hescha.computerstore.service;
 
 import com.hescha.computerstore.model.Order;
+import com.hescha.computerstore.model.OrderItem;
 import com.hescha.computerstore.model.OrderStatus;
+import com.hescha.computerstore.model.User;
 import com.hescha.computerstore.repository.*;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -14,29 +17,36 @@ import java.util.Set;
 public class OrderService extends CrudService<Order> {
 
     private final OrderRepository repository;
+    @Autowired
+    private OrderItemRepository orderItemRepository;
+    @Autowired
+    private UserService userService;
 
     public OrderService(OrderRepository repository) {
         super(repository);
         this.repository = repository;
     }
 
-                                                            public Order findByOwner(User owner) {
-                return repository.findByOwner(owner);
-            }
-                                                                    public List<Order> findByOrderitemsContains(com.hescha.computerstore.model.OrderItem orderitems) {
-                return repository.findByOrderitemsContains(orderitems);
-            }
-                                                public Order findByCreated(LocalDateTime created) {
-                return repository.findByCreated(created);
-            }
-                                                public Order findByStatus(OrderStatus status) {
-                return repository.findByStatus(status);
-            }
-            
+    public Order findByOwner(User owner) {
+        return repository.findByOwner(owner);
+    }
+
+    public List<Order> findByOrderitemsContains(com.hescha.computerstore.model.OrderItem orderitems) {
+        return repository.findByOrderitemsContains(orderitems);
+    }
+
+    public Order findByCreated(LocalDateTime created) {
+        return repository.findByCreated(created);
+    }
+
+    public Order findByStatus(OrderStatus status) {
+        return repository.findByStatus(status);
+    }
+
 
     public Order update(Long id, Order entity) {
         Order read = read(id);
-        if(read == null){
+        if (read == null) {
             throw new RuntimeException("Entity Order not found");
         }
         updateFields(entity, read);
@@ -45,9 +55,37 @@ public class OrderService extends CrudService<Order> {
     }
 
     private void updateFields(Order entity, Order read) {
-                                    read.setOwner(entity.getOwner());
-                                                read.setOrderitems(entity.getOrderitems());
-                                                read.setCreated(entity.getCreated());
-                                                read.setStatus(entity.getStatus());
-                        }
+        read.setOwner(entity.getOwner());
+        read.setOrderitems(entity.getOrderitems());
+        read.setCreated(entity.getCreated());
+        read.setStatus(entity.getStatus());
+    }
+
+    public void delete(Long orderId) {
+        Order order = read(orderId);
+        User owner = order.getOwner();
+        List<OrderItem> orderItems = order.getOrderitems();
+        // Удаление связи между Order и OrderItem
+        for (OrderItem orderItem : orderItems) {
+            orderItem.setProduct(null);
+            orderItemRepository.save(orderItem);
+        }
+        order.setOrderitems(new ArrayList<>());
+        update(order);
+
+        // Удаление OrderItem
+        orderItemRepository.deleteAll(orderItems);
+
+        Order order2 = owner.getOrders().stream()
+                .filter(order1 -> order1.getId() == orderId)
+                .findFirst()
+                .get();
+        if (order2 != null) {
+            owner.getOrders().remove(order);
+            userService.update(owner);
+        }
+
+        // Удаление самого заказа
+        repository.deleteById(orderId);
+    }
 }

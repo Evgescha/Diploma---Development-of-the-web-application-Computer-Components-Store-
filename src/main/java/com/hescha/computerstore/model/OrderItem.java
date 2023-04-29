@@ -13,4 +13,12 @@ public class OrderItem extends AbstractEntity {
     @ManyToOne
     private Product product;
     private Integer count;
+
+    @Override
+    public String toString() {
+        return "OrderItem{" +
+                "product=" + product.getName() +
+                ", count=" + count +
+                '}';
+    }
 }
