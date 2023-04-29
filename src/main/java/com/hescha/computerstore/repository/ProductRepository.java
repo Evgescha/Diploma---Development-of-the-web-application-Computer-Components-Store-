@@ -31,4 +31,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByCommentsContains(com.hescha.computerstore.model.Comment comments);
 
     Product findByDeleted(Boolean deleted);
+
+    List<Product> findByNameContainingOrDescriptionContaining(String searchPhrase, String searchPhrase2);
 }

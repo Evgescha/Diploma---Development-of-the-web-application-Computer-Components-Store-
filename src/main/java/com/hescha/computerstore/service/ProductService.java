@@ -62,6 +62,10 @@ public class ProductService extends CrudService<Product> {
         return repository.findByCategoryAndDescriptionContains(category, description);
     }
 
+    public List<Product> findByNameContainsOrDescriptionContains(String searchPhrase) {
+        return repository.findByNameContainingOrDescriptionContaining(searchPhrase, searchPhrase);
+    }
+
 
     public Product update(Long id, Product entity) {
         Product read = read(id);

@@ -5,12 +5,8 @@ import com.hescha.computerstore.model.Product;
 import com.hescha.computerstore.service.CommentService;
 import com.hescha.computerstore.service.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.stereotype.Controller;
 
@@ -40,6 +36,12 @@ public class ProductController {
     @GetMapping("/filter/{category}")
     public String filter(Model model,@PathVariable String category) {
         model.addAttribute("list", service.findByCategory(Category.valueOf(category)));
+        return THYMELEAF_TEMPLATE_ALL_ITEMS_PAGE;
+    }
+
+    @GetMapping("/search")
+    public String search(Model model, @RequestParam String searchPhrase) {
+        model.addAttribute("list", service.findByNameContainsOrDescriptionContains(searchPhrase));
         return THYMELEAF_TEMPLATE_ALL_ITEMS_PAGE;
     }
 
