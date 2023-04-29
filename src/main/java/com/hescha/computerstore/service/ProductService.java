@@ -54,11 +54,11 @@ public class ProductService extends CrudService<Product> {
         return repository.findByDeleted(deleted);
     }
 
-    List<Product> findByCategory(Category category) {
+    public List<Product> findByCategory(Category category) {
         return repository.findByCategory(category);
     }
 
-    List<Product> findByCategoryAndDescriptionContains(Category category, String description) {
+    public List<Product> findByCategoryAndDescriptionContains(Category category, String description) {
         return repository.findByCategoryAndDescriptionContains(category, description);
     }
 

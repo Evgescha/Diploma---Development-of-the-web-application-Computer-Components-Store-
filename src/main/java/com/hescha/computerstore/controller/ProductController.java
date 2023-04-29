@@ -37,6 +37,12 @@ public class ProductController {
         return THYMELEAF_TEMPLATE_ALL_ITEMS_PAGE;
     }
 
+    @GetMapping("/filter/{category}")
+    public String filter(Model model,@PathVariable String category) {
+        model.addAttribute("list", service.findByCategory(Category.valueOf(category)));
+        return THYMELEAF_TEMPLATE_ALL_ITEMS_PAGE;
+    }
+
     @GetMapping("/{id}")
     public String read(@PathVariable("id") Long id, Model model) {
         model.addAttribute("entity", service.read(id));

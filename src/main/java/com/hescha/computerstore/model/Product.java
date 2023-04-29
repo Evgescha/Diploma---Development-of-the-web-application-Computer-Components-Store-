@@ -12,7 +12,7 @@ public class Product extends AbstractEntity {
     private String name;
     @Column(length = 1000)
     private String shortDescription;
-    @Column(length = 20000)
+    @Column(length = 100_000)
     private String description;
     private String image;
     private Double price;
