@@ -3,6 +3,7 @@ package com.hescha.computerstore.controller;
 import com.hescha.computerstore.model.User;
 import com.hescha.computerstore.service.OrderService;
 import com.hescha.computerstore.service.RoleService;
+import com.hescha.computerstore.service.SecurityService;
 import com.hescha.computerstore.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,9 +30,9 @@ public class UserController {
     public static final String REDIRECT_TO_ALL_ITEMS = "redirect:" + CURRENT_ADDRESS;
 
     private final UserService service;
-
     private final RoleService roleService;
     private final OrderService orderService;
+    private final SecurityService securityService;
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping
@@ -40,9 +41,14 @@ public class UserController {
         return THYMELEAF_TEMPLATE_ALL_ITEMS_PAGE;
     }
 
+    @GetMapping("/profile")
+    public String profile() {
+        return "redirect:/user/" + securityService.getLoggedIn().getId();
+    }
+
     @GetMapping("/{id}")
     public String read(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("entity", service.read(id));
+        model.addAttribute("user", service.read(id));
         return THYMELEAF_TEMPLATE_ONE_ITEM_PAGE;
     }
 
@@ -53,19 +59,18 @@ public class UserController {
         } else {
             model.addAttribute("entity", service.read(id));
         }
-
-        model.addAttribute("roles_list", roleService.readAll());
-
+        model.addAttribute("allRoles", roleService.readAll());
         return THYMELEAF_TEMPLATE_EDIT_PAGE;
     }
 
     @PostMapping
     public String save(@ModelAttribute User entity, RedirectAttributes ra) {
+        entity.setPassword(passwordEncoder.encode(entity.getPassword()));
         if (entity.getId() == null) {
             try {
-                service.registerNew(entity);
+                User createdEntity = service.create(entity);
                 ra.addFlashAttribute(MESSAGE, "Creating is successful");
-                return REDIRECT_TO_ALL_ITEMS;
+                return REDIRECT_TO_ALL_ITEMS + "/" + createdEntity.getId();
             } catch (Exception e) {
                 ra.addFlashAttribute(MESSAGE, "Creating failed");
                 e.printStackTrace();
@@ -73,7 +78,6 @@ public class UserController {
             return REDIRECT_TO_ALL_ITEMS;
         } else {
             try {
-                entity.setPassword(passwordEncoder.encode(entity.getPassword()));
                 service.update(entity.getId(), entity);
                 ra.addFlashAttribute(MESSAGE, "Editing is successful");
             } catch (Exception e) {

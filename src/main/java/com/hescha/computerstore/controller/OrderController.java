@@ -34,6 +34,8 @@ public class OrderController {
     @GetMapping
     public String readAll(Model model) {
         model.addAttribute("list", orderService.readAll());
+        User loggedIn = securityService.getLoggedIn();
+        model.addAttribute("user", loggedIn);
         return THYMELEAF_TEMPLATE_ALL_ITEMS_PAGE;
     }
 
@@ -100,7 +102,6 @@ public class OrderController {
         }
         return REDIRECT_TO_ALL_ITEMS;
     }
-
 
     @GetMapping("/{id}/deleteOrderItem/{itemId}")
     public String deleteOrderItem(@PathVariable Long id, @PathVariable Long itemId, RedirectAttributes ra) {

@@ -1,17 +1,16 @@
 package com.hescha.computerstore.repository;
 
+import com.hescha.computerstore.model.Order;
+import com.hescha.computerstore.model.Role;
 import com.hescha.computerstore.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Set;
-
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
-
-    List<User> findByUsernameContains(String username);
 
     List<User> findByPassword(String password);
 
@@ -37,7 +36,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findByAddressContains(String address);
 
-    List<User> findByRolesContains(com.hescha.computerstore.model.Role roles);
+    List<User> findByRolesContains(Role roles);
 
-    List<User> findByOrdersContains(com.hescha.computerstore.model.Order orders);
+    User findByOrdersContains(Order orders);
 }

@@ -21,7 +21,7 @@
     <tbody>
         <tr th:each="entity : ${list}">
                                     <td th:text=${entity.order}></td>
-                                            <td th:text=${entity.product}></td>
+                                            <td th:text=${entity.product.name}></td>
                                             <td th:text=${entity.count}></td>
                 
         <td>

@@ -17,21 +17,18 @@ import java.util.Set;
 public class OrderService extends CrudService<Order> {
 
     private final OrderRepository repository;
-    @Autowired
-    private OrderItemRepository orderItemRepository;
-    @Autowired
-    private UserService userService;
+    private final OrderItemRepository orderItemRepository;
+    private final UserService userService;
 
-    public OrderService(OrderRepository repository) {
+    public OrderService(OrderRepository repository, OrderItemRepository orderItemRepository,
+                        UserService userService) {
         super(repository);
         this.repository = repository;
+        this.orderItemRepository = orderItemRepository;
+        this.userService = userService;
     }
 
-    public Order findByOwner(User owner) {
-        return repository.findByOwner(owner);
-    }
-
-    public List<Order> findByOrderitemsContains(com.hescha.computerstore.model.OrderItem orderitems) {
+    public List<Order> findByOrderitemsContains(OrderItem orderitems) {
         return repository.findByOrderitemsContains(orderitems);
     }
 
@@ -55,15 +52,13 @@ public class OrderService extends CrudService<Order> {
     }
 
     private void updateFields(Order entity, Order read) {
-        read.setOwner(entity.getOwner());
         read.setOrderitems(entity.getOrderitems());
-        read.setCreated(entity.getCreated());
         read.setStatus(entity.getStatus());
     }
 
     public void delete(Long orderId) {
         Order order = read(orderId);
-        User owner = order.getOwner();
+        User owner = userService.findByOrdersContains(order);
         List<OrderItem> orderItems = order.getOrderitems();
         // Удаление связи между Order и OrderItem
         for (OrderItem orderItem : orderItems) {

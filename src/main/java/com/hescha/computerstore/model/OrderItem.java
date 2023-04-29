@@ -9,15 +9,13 @@ import javax.persistence.ManyToOne;
 @Data
 public class OrderItem extends AbstractEntity {
     @ManyToOne
-    private Order order;
-    @ManyToOne
     private Product product;
     private Integer count;
 
     @Override
     public String toString() {
         return "OrderItem{" +
-                "product=" + product.getName() +
+                ", product=" + product.id +
                 ", count=" + count +
                 '}';
     }

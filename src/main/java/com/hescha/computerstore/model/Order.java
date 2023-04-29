@@ -13,9 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "myOrder")
 @Data
-public class Order extends AbstractEntity{
-    @ManyToOne
-    private User owner;
+public class Order extends AbstractEntity {
     @OneToMany
     private List<OrderItem> orderitems = new ArrayList<>();
     private LocalDateTime created = LocalDateTime.now();
@@ -24,10 +22,16 @@ public class Order extends AbstractEntity{
     @Override
     public String toString() {
         return "Order{" +
-                "owner=" + owner.getUsername() +
-                ", orderitems=" + orderitems +
+                "orderitems=" + orderitems +
                 ", created=" + created +
                 ", status=" + status +
                 '}';
+    }
+
+    public double getPrice() {
+        return getOrderitems()
+                .stream()
+                .mapToDouble(item -> item.getProduct().getPrice() * item.getCount())
+                .sum();
     }
 }

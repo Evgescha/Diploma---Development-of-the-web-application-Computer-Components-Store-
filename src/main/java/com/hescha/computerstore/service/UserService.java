@@ -1,7 +1,10 @@
 package com.hescha.computerstore.service;
 
+import com.hescha.computerstore.model.Order;
+import com.hescha.computerstore.model.Role;
 import com.hescha.computerstore.model.User;
 import com.hescha.computerstore.repository.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,84 +14,30 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Set;
 
+@Slf4j
 @Service
-public class UserService extends CrudService<User>
-        implements org.springframework.security.core.userdetails.UserDetailsService {
-
+public class UserService extends CrudService<User> implements org.springframework.security.core.userdetails.UserDetailsService {
     private final UserRepository repository;
-    @Autowired
-    private RoleService roleService;
+    private final RoleService roleService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository repository) {
+    public UserService(UserRepository repository,
+                       RoleService roleService) {
         super(repository);
         this.repository = repository;
+        this.roleService = roleService;
     }
 
-    public User findByUsername(String username) {
-        return repository.findByUsername(username);
-    }
-
-    public List<User> findByUsernameContains(String username) {
-        return repository.findByUsernameContains(username);
-    }
-
-    public List<User> findByPassword(String password) {
-        return repository.findByPassword(password);
-    }
-
-    public List<User> findByPasswordContains(String password) {
-        return repository.findByPasswordContains(password);
-    }
-
-    public List<User> findByFirstname(String firstname) {
-        return repository.findByFirstname(firstname);
-    }
-
-    public List<User> findByFirstnameContains(String firstname) {
-        return repository.findByFirstnameContains(firstname);
-    }
-
-    public List<User> findByLastname(String lastname) {
-        return repository.findByLastname(lastname);
-    }
-
-    public List<User> findByLastnameContains(String lastname) {
-        return repository.findByLastnameContains(lastname);
-    }
-
-    public List<User> findByEmail(String email) {
-        return repository.findByEmail(email);
-    }
-
-    public List<User> findByEmailContains(String email) {
-        return repository.findByEmailContains(email);
-    }
-
-    public List<User> findByImage(String image) {
-        return repository.findByImage(image);
-    }
-
-    public List<User> findByImageContains(String image) {
-        return repository.findByImageContains(image);
-    }
-
-    public List<User> findByAddress(String address) {
-        return repository.findByAddress(address);
-    }
-
-    public List<User> findByAddressContains(String address) {
-        return repository.findByAddressContains(address);
-    }
-
-    public List<User> findByRolesContains(com.hescha.computerstore.model.Role roles) {
-        return repository.findByRolesContains(roles);
-    }
-
-    public List<User> findByOrdersContains(com.hescha.computerstore.model.Order orders) {
-        return repository.findByOrdersContains(orders);
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        log.info("loadUserByUsername {}", username);
+        User user = repository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("Пользователь " + username + " не был найден в базе");
+        }
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), List.of());
     }
 
 
@@ -113,18 +62,18 @@ public class UserService extends CrudService<User>
         read.setRoles(entity.getRoles());
     }
 
+    public User findByUsername(String username) {
+        return repository.findByUsername(username);
+    }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = repository.findByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("User " + username + " not found");
-        }
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), List.of());
+    public User findByOrdersContains(Order orders) {
+        return repository.findByOrdersContains(orders);
     }
 
     public boolean registerNew(User entity) {
+
         entity.getRoles().add(roleService.read(1));
+        log.info("registerNew {}", entity);
         if (repository.findByUsername(entity.getUsername()) != null) {
             return false;
         }

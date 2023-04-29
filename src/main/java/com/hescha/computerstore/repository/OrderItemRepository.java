@@ -11,8 +11,6 @@ import java.util.Set;
 
 @Repository
 public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
-    OrderItem findByOrder(Order order);
-
     OrderItem findByProduct(Product product);
 
     OrderItem findByCount(Integer count);

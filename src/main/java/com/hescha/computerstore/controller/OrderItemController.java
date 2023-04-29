@@ -28,7 +28,6 @@ public class OrderItemController {
     public static final String REDIRECT_TO_ALL_ITEMS = "redirect:" + CURRENT_ADDRESS;
 
     private final OrderItemService service;
-
     private final OrderService orderService;
     private final ProductService productService;
 

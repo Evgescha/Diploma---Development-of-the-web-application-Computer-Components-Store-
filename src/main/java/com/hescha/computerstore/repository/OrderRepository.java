@@ -11,8 +11,6 @@ import java.util.Set;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
-    Order findByOwner(User owner);
-
     List<Order> findByOrderitemsContains(OrderItem orderitems);
 
     Order findByCreated(LocalDateTime created);
