@@ -1,18 +1,18 @@
 package com.hescha.computerstore.controller;
 
 import com.hescha.computerstore.model.Comment;
+import com.hescha.computerstore.model.Product;
+import com.hescha.computerstore.model.User;
 import com.hescha.computerstore.service.CommentService;
 import com.hescha.computerstore.service.ProductService;
+import com.hescha.computerstore.service.SecurityService;
 import com.hescha.computerstore.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.stereotype.Controller;
+
 
 
 @Controller
@@ -28,9 +28,9 @@ public class CommentController {
     public static final String REDIRECT_TO_ALL_ITEMS = "redirect:" + CURRENT_ADDRESS;
 
     private final CommentService service;
-
     private final UserService userService;
     private final ProductService productService;
+    private final SecurityService securityService;
 
     @GetMapping
     public String readAll(Model model) {
@@ -59,17 +59,22 @@ public class CommentController {
     }
 
     @PostMapping
-    public String save(@ModelAttribute Comment entity, RedirectAttributes ra) {
+    public String save(@ModelAttribute Comment entity, @RequestParam Long productId, RedirectAttributes ra) {
+        User loggedIn = securityService.getLoggedIn();
         if (entity.getId() == null) {
             try {
+                entity.setOwner(loggedIn);
+                Product product = productService.read(productId);
+                entity.setProduct(product);
+
                 Comment createdEntity = service.create(entity);
+                product.getComments().add(createdEntity);
+                productService.update(product);
                 ra.addFlashAttribute(MESSAGE, "Creating is successful");
-                return REDIRECT_TO_ALL_ITEMS + "/" + createdEntity.getId();
             } catch (Exception e) {
                 ra.addFlashAttribute(MESSAGE, "Creating failed");
                 e.printStackTrace();
             }
-            return REDIRECT_TO_ALL_ITEMS;
         } else {
             try {
                 service.update(entity.getId(), entity);
@@ -78,8 +83,8 @@ public class CommentController {
                 e.printStackTrace();
                 ra.addFlashAttribute(MESSAGE, "Editing failed");
             }
-            return REDIRECT_TO_ALL_ITEMS + "/" + entity.getId();
         }
+        return "redirect:/product/" + productId;
     }
 
     @GetMapping("/{id}/delete")

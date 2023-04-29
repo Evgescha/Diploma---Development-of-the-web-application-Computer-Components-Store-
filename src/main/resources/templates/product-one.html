@@ -146,7 +146,6 @@
                                                         nisl in adipiscin"
                                                     </div>
                                                     <div class="author m-t-15">
-                                                        <i class="fa fa-pencil-square-o"></i>
                                                         <span class="name" th:text="${comments_item.owner.username}">Michael Lee</span>
                                                     </div>
                                                 </div>
@@ -158,7 +157,7 @@
                                             <h4 class="title">Write your own comment</h4>
                                             <div class="review-form">
                                                 <div class="form-container">
-                                                    <form role="form" class="cnt-form">
+                                                    <form role="form" class="cnt-form" method="post" action="/comment">
                                                         <div class="row">
                                                             <div class="col">
                                                                 <div class="form-group">
@@ -166,8 +165,9 @@
                                                                             class="astk">*</span>
                                                                     </label>
                                                                     <textarea class="form-control txt txt-review"
-                                                                              id="exampleInputReview" rows="4"
+                                                                              id="exampleInputReview" rows="4" name="message"
                                                                               placeholder=""></textarea>
+                                                                    <input type="text" th:value="${entity.id}" name="productId" id="productId" hidden>
                                                                 </div>
                                                             </div>
                                                         </div>
