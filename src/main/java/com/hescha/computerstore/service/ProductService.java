@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService extends CrudService<Product> {
@@ -50,10 +51,6 @@ public class ProductService extends CrudService<Product> {
         return repository.findByCommentsContains(comments);
     }
 
-    public Product findByDeleted(Boolean deleted) {
-        return repository.findByDeleted(deleted);
-    }
-
     public List<Product> findByCategory(Category category) {
         return repository.findByCategory(category);
     }
@@ -63,7 +60,10 @@ public class ProductService extends CrudService<Product> {
     }
 
     public List<Product> findByNameContainsOrDescriptionContains(String searchPhrase) {
-        return repository.findByNameContainingOrDescriptionContaining(searchPhrase, searchPhrase);
+        return repository.findByNameContainingOrDescriptionContaining(searchPhrase, searchPhrase)
+                .stream()
+                .filter(product -> !product.getDeleted())
+                .collect(Collectors.toList());
     }
 
 
@@ -83,5 +83,8 @@ public class ProductService extends CrudService<Product> {
         read.setImage(entity.getImage());
         read.setPrice(entity.getPrice());
         read.setCategory(entity.getCategory());
+    }
+    public List<Product> readAllNotDeleted() {
+        return repository.findByDeleted(false);
     }
 }

@@ -54,7 +54,7 @@
                         <div class="form-group">
                             <label class="info-title" for="roles">Roles <span>*</span></label>
                             <select multiple="multiple" th:field="*{roles}" id="roles" class="form-control unicase-form-control text-input">
-                                <option th:each="roles_item : ${roles_list}" th:value="${roles_item.id}" th:text="${roles_item}"></option>
+                                <option th:each="roles_item : ${allRoles}" th:value="${roles_item.id}" th:text="${roles_item}"></option>
                             </select>
                         </div>
                         <input type="hidden" th:field="*{id}" id="id">

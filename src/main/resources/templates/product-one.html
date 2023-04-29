@@ -87,6 +87,12 @@
                                             <button class="btn btn-primary" type="submit">
                                                 <i class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART
                                             </button>
+                                            <a class="btn btn-primary"
+                                               th:if="${#request.isUserInRole('ADMIN') or #request.isUserInRole('MANAGER') }"
+                                               th:href="@{/product/edit/{id}(id=${entity.id})}">Edit Product</a>
+                                            <a class="btn btn-danger"
+                                               th:if="${#request.isUserInRole('ADMIN') or #request.isUserInRole('MANAGER') }"
+                                               th:href="@{/product/{id}/delete(id=${entity.id})}">Delete Product</a>
                                         </div>
                                     </div>
                                     <!-- /.row -->
@@ -153,7 +159,7 @@
                                             <!-- /.reviews -->
                                         </div>
                                         <!-- /.product-reviews -->
-                                        <div class="product-add-review">
+                                        <div class="product-add-review"  th:if="${#request.userPrincipal != null}">
                                             <h4 class="title">Write your own comment</h4>
                                             <div class="review-form">
                                                 <div class="form-container">

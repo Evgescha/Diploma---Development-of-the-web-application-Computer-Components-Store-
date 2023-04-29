@@ -29,7 +29,7 @@ public class ProductController {
 
     @GetMapping
     public String readAll(Model model) {
-        model.addAttribute("list", service.readAll());
+        model.addAttribute("list", service.readAllNotDeleted());
         return THYMELEAF_TEMPLATE_ALL_ITEMS_PAGE;
     }
 
@@ -91,7 +91,9 @@ public class ProductController {
     @GetMapping("/{id}/delete")
     public String delete(@PathVariable Long id, RedirectAttributes ra) {
         try {
-            service.delete(id);
+            Product read = service.read(id);
+            read.setDeleted(true);
+            service.update(read);
             ra.addFlashAttribute(MESSAGE, "Removing is successful");
         } catch (Exception e) {
             e.printStackTrace();
