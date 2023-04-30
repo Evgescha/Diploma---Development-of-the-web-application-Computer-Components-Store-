@@ -12,13 +12,4 @@ import java.util.Set;
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-    List<Comment> findByMessage(String message);
-
-    List<Comment> findByMessageContains(String message);
-
-    Comment findByOwner(User owner);
-
-    Comment findByProduct(Product product);
-
-    Comment findByCreationDate(LocalDateTime creationDate);
 }

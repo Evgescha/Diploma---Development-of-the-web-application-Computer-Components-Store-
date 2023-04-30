@@ -3,6 +3,7 @@
 <head th:replace="~{/commons/head :: head}"></head>
 <body class="cnt-home">
 <div th:replace="~{/commons/header :: header}"></div>
+
 <div class="breadcrumb">
     <div class="container">
         <div class="breadcrumb-inner">
@@ -13,11 +14,20 @@
                 <li class='active'>Products</li>
             </ul>
         </div>
-        <!-- /.breadcrumb-inner -->
     </div>
-    <!-- /.container -->
 </div>
-<!-- /.breadcrumb -->
+<div class="breadcrumb">
+    <div class="container">
+        <div class="row">
+        <div class="col">
+            <a class="btn btn-primary"
+               th:if="${#request.isUserInRole('ADMIN') or #request.isUserInRole('MANAGER') }"
+               href="/product/edit">Add Product</a>
+        </div>
+        </div>
+    </div>
+</div>
+
 <div class="body-content outer-top-xs">
     <div class='container'>
         <div class='row outer-bottom-sm'>

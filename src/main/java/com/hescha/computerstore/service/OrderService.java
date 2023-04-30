@@ -2,16 +2,13 @@ package com.hescha.computerstore.service;
 
 import com.hescha.computerstore.model.Order;
 import com.hescha.computerstore.model.OrderItem;
-import com.hescha.computerstore.model.OrderStatus;
 import com.hescha.computerstore.model.User;
-import com.hescha.computerstore.repository.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.hescha.computerstore.repository.OrderItemRepository;
+import com.hescha.computerstore.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class OrderService extends CrudService<Order> {
@@ -27,19 +24,6 @@ public class OrderService extends CrudService<Order> {
         this.orderItemRepository = orderItemRepository;
         this.userService = userService;
     }
-
-    public List<Order> findByOrderitemsContains(OrderItem orderitems) {
-        return repository.findByOrderitemsContains(orderitems);
-    }
-
-    public Order findByCreated(LocalDateTime created) {
-        return repository.findByCreated(created);
-    }
-
-    public Order findByStatus(OrderStatus status) {
-        return repository.findByStatus(status);
-    }
-
 
     public Order update(Long id, Order entity) {
         Order read = read(id);

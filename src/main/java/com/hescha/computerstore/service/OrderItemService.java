@@ -1,13 +1,8 @@
 package com.hescha.computerstore.service;
 
-import com.hescha.computerstore.model.Order;
 import com.hescha.computerstore.model.OrderItem;
-import com.hescha.computerstore.model.Product;
 import com.hescha.computerstore.repository.*;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Set;
 
 @Service
 public class OrderItemService extends CrudService<OrderItem> {

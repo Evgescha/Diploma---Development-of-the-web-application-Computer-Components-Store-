@@ -18,6 +18,6 @@ public class Product extends AbstractEntity {
     private Double price;
     @OneToMany
     private List<Comment> comments = new ArrayList<>();
-    private Boolean deleted;
+    private Boolean deleted = false;
     private Category category;
 }
