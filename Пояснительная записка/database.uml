@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.COMMENT</OriginalElement>
+  <nodes>
+    <node x="445.51071428571424" y="283.0">4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.MY_ORDER</node>
+    <node x="106.0" y="0.0">4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.PRODUCT</node>
+    <node x="649.5678571428571" y="66.0">4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.ROLE</node>
+    <node x="610.5107142857142" y="294.5">4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.MY_USER_ROLES</node>
+    <node x="63.25" y="456.0">4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.PRODUCT_COMMENTS</node>
+    <node x="284.51071428571424" y="283.0">4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.ORDER_ITEM</node>
+    <node x="477.56785714285706" y="0.0">4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.MY_USER</node>
+    <node x="498.25" y="456.0">4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.MY_USER_ORDERS</node>
+    <node x="13.0" y="261.0">4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.COMMENT</node>
+    <node x="272.25" y="456.0">4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.MY_ORDER_ORDERITEMS</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.COMMENT" target="4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.PRODUCT" relationship="REFERENCES">
+      <point x="46.5" y="-71.5" />
+      <point x="152.5" y="240.0" />
+      <point x="209.5" y="240.0" />
+      <point x="0.0" y="104.5" />
+    </edge>
+    <edge source="4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.PRODUCT_COMMENTS" target="4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.COMMENT" relationship="REFERENCES">
+      <point x="-47.25" y="-38.0" />
+      <point x="110.5" y="430.0" />
+      <point x="106.0" y="430.0" />
+      <point x="0.0" y="71.5" />
+    </edge>
+    <edge source="4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.ORDER_ITEM" target="4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.PRODUCT" relationship="REFERENCES">
+      <point x="0.0" y="-49.5" />
+      <point x="355.01071428571424" y="240.0" />
+      <point x="209.5" y="240.0" />
+      <point x="0.0" y="104.5" />
+    </edge>
+    <edge source="4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.COMMENT" target="4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.MY_USER" relationship="REFERENCES">
+      <point x="-46.5" y="-71.5" />
+      <point x="59.5" y="230.0" />
+      <point x="515.5678571428571" y="230.0" />
+      <point x="-38.0" y="104.5" />
+    </edge>
+    <edge source="4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.MY_USER_ORDERS" target="4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.MY_USER" relationship="REFERENCES">
+      <point x="40.0" y="-38.0" />
+      <point x="618.25" y="430.0" />
+      <point x="600.0107142857142" y="430.0" />
+      <point x="600.0107142857142" y="240.0" />
+      <point x="605.7607142857142" y="240.0" />
+      <point x="605.7607142857142" y="230.0" />
+      <point x="591.5678571428571" y="230.0" />
+      <point x="38.0" y="104.5" />
+    </edge>
+    <edge source="4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.MY_ORDER_ORDERITEMS" target="4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.ORDER_ITEM" relationship="REFERENCES">
+      <point x="-51.5" y="-38.0" />
+      <point x="323.75" y="430.0" />
+      <point x="355.01071428571424" y="430.0" />
+      <point x="0.0" y="49.5" />
+    </edge>
+    <edge source="4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.MY_USER_ORDERS" target="4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.MY_ORDER" relationship="REFERENCES">
+      <point x="-40.0" y="-38.0" />
+      <point x="538.25" y="430.0" />
+      <point x="553.5107142857142" y="430.0" />
+      <point x="36.0" y="49.5" />
+    </edge>
+    <edge source="4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.MY_USER_ROLES" target="4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.MY_USER" relationship="REFERENCES">
+      <point x="-36.75" y="-38.0" />
+      <point x="647.2607142857142" y="240.0" />
+      <point x="605.7607142857142" y="240.0" />
+      <point x="605.7607142857142" y="230.0" />
+      <point x="591.5678571428571" y="230.0" />
+      <point x="38.0" y="104.5" />
+    </edge>
+    <edge source="4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.PRODUCT_COMMENTS" target="4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.PRODUCT" relationship="REFERENCES">
+      <point x="47.25" y="-38.0" />
+      <point x="205.0" y="430.0" />
+      <point x="209.49999999999997" y="430.0" />
+      <point x="0.0" y="104.5" />
+    </edge>
+    <edge source="4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.MY_ORDER_ORDERITEMS" target="4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.MY_ORDER" relationship="REFERENCES">
+      <point x="51.5" y="-38.0" />
+      <point x="426.75" y="430.0" />
+      <point x="481.51071428571424" y="430.0" />
+      <point x="-36.0" y="49.5" />
+    </edge>
+    <edge source="4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.MY_USER_ROLES" target="4edeed1a-d1cf-440a-9488-9c53d2c3dc97.TABLE:COMPUTERSTOREDB.PUBLIC.ROLE" relationship="REFERENCES">
+      <point x="36.75" y="-38.0" />
+      <point x="720.7607142857142" y="240.0" />
+      <point x="706.5678571428571" y="240.0" />
+      <point x="0.0" y="38.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="1.0" showDependencies="false" x="400.0" y="266.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Columns</Category>
+    <Category>Comments</Category>
+    <Category>Key columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+
